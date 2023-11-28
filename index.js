@@ -1,45 +1,36 @@
-"use strict"
+"use strict";
 
-window.onload = function(){
-    let weatherDropMenu = document.getElementById('weatherDropdown');
-    let displayTable = document.getElementById('displayTable');
+let weatherDropMenu = document.getElementById('weatherDropdown');
 
+window.onload = function () {
     weatherDropDown();
 
-
-    
+    weatherDropMenu.onchange = getWeatherApi;
 }
 
-function weatherDropDown(){
-
+function weatherDropDown() {
     let defaultOption = new Option('Select One');
-        weatherDropMenu.appendChild(defaultOption);
-    
+    weatherDropMenu.appendChild(defaultOption);
+
     cities.forEach(city => {
-        let options = new Option(city.city);
-        weatherDropMenu.appendChild(options)
+        let option = new Option(city.city); // Assuming city.name is the property you want to display
+        weatherDropMenu.appendChild(option);
     })
+}
 
-    weatherDropMenu.onchange = function(){
-        const selectedCity = weatherDropMenu.value;
-        displayTable(selectedCity);
-    }
-    }
+async function getWeatherApi() {
+    const selectedCityName = weatherDropMenu.value;
 
-// function displayTable(selectedCity){
-    
-//     // create table now
-//    const tableContainer = document.createElement('div');
-//    const table = document.createElement('table');
-//    tableContainer.appendChild(table);
-//    tableContainer.innerHTML = "";
+    const location = cities.find(city => city.city === selectedCityName);
 
-//    const tableHeader = document.createElement('thead');
-//    tableHeader
-// }
+    const { Latitude, Longitude } = location;
 
-// function getWeather(city){
-//     fetch(`https://api.weather.gov/points/${city.}`)
-// }
+    const fetchWeatherUrl = `https://api.weather.gov/points/${Latitude},${Longitude}`;
+
+    await fetch(fetchWeatherUrl)
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(`Cant search for the api`)
+}
 
 
