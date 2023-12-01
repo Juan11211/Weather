@@ -22,11 +22,6 @@ function getWeatherApi() {
 
     const location = cities.find(city => city.city === selectedCityName);
 
-    if (!location) {
-        console.log(`City not found: ${selectedCityName}`);
-        return;
-    }
-
     const { Latitude, Longitude } = location;
 
     const fetchWeatherUrl = `https://api.weather.gov/points/${Latitude},${Longitude}`;
@@ -68,14 +63,14 @@ function displayWeather(periods) {
     let tableHeader = document.createElement('thead');
     table.appendChild(tableHeader);
 
-    // let headerRow = tableHeader.insertRow();
-    // let headers = ['Name', 'Wind Speed', 'Temperature', 'Short Forecast'];
+    let headerRow = tableHeader.insertRow();
+    let headers = ['Name', 'Wind Speed', 'Temperature', 'Short Forecast'];
 
-    // headers.forEach(headerText => {
-    //     let header = document.createElement('th');
-    //     header.textContent = headerText;
-    //     headerRow.appendChild(header);
-    // });
+    headers.forEach(headerText => {
+        let header = document.createElement('th');
+        header.textContent = headerText;
+        headerRow.appendChild(header);
+    });
 
     let tableBody = document.createElement('tbody');
     table.appendChild(tableBody);
