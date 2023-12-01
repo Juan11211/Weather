@@ -13,7 +13,7 @@ function weatherDropDown() {
     weatherDropMenu.appendChild(defaultOption);
 
     cities.forEach(city => {
-        let option = new Option(city.city); // Assuming city.name is the property you want to display
+        let option = new Option(city.city); 
         weatherDropMenu.appendChild(option);
     })
 }
